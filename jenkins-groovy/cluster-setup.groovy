@@ -19,8 +19,7 @@ pipeline {
                 script {
                     // Authenticate using gcloud CLI with the service account JSON key from credentials
                     sh '''
-                    echo "${GOOGLE_APPLICATION_CREDENTIALS}" > /tmp/google-credentials.json
-                    gcloud auth activate-service-account --key-file=/tmp/google-credentials.json
+                    gcloud auth activate-service-account --key-file="${GOOGLE_APPLICATION_CREDENTIALS}"
                     gcloud config set project asysops  // Replace with your actual project ID
                     '''
                 }
