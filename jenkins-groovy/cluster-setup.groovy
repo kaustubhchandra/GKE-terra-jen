@@ -1,26 +1,44 @@
 pipeline {
     agent any
-
     environment {
-        // This is the ID of the Git token you created in Jenkins
-        GIT_CREDENTIALS = 'git-tok'
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('gke-gcr-json') // The ID of your Google Cloud Service Account credentials
     }
-
+    
     stages {
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                // Using the Git credentials to clone the repo
-                git credentialsId: "${GIT_CREDENTIALS}", url: 'https://github.com/kaustubhchandra/GKE-terra-jen.git'
+                // Clone the repository containing your Terraform configuration (optional if you use SCM)
+                git 'https://github.com/kaustubhchandra/GKE-terra-jen.git'
             }
         }
-
-        stage('Build') {
+        stage('Terraform Init') {
             steps {
-                // Your build steps go here
-                echo 'Building the project...'
+                script {
+                    sh 'cd jenkins-groovy'
+                    sh 'terraform init'
+                }
             }
         }
-
-        // Add more stages as needed
+        stage('Terraform Plan') {
+            steps {
+                script {
+                    sh 'terraform plan'
+                }
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                script {
+                    // Automatically approve the Terraform apply
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+    }
+    post {
+        always {
+            // Clean up after job is finished
+            cleanWs()
+        }
     }
 }
