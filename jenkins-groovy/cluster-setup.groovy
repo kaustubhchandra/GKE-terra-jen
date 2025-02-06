@@ -21,7 +21,7 @@ pipeline {
                     sh '''
                     echo "${GOOGLE_APPLICATION_CREDENTIALS}" > /tmp/google-credentials.json
                     gcloud auth activate-service-account --key-file=/tmp/google-credentials.json
-                    gcloud config set project your-project-id  // Replace with your actual project ID
+                    gcloud config set project asysops  // Replace with your actual project ID
                     '''
                 }
             }
