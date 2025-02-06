@@ -1,6 +1,6 @@
 provider "google" {
-  project = "your-project-id"
-  region  = "us-central1"
+  project = "asysops"
+  region  = "asia-south1"
 }
 
 resource "google_container_cluster" "primary" {
