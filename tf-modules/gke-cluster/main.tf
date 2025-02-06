@@ -6,6 +6,7 @@ provider "google" {
 resource "google_container_cluster" "primary" {
   name     = "highway-cluster"
   location = "asia-south1-b"
+}
 
   initial_node_count = 2
   node_config {
