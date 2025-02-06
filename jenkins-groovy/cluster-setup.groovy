@@ -1,30 +1,26 @@
 pipeline {
     agent any
+
     environment {
-        GOOGLE_CREDENTIALS = credentials('gcp-credentials')
+        // This is the ID of the Git token you created in Jenkins
+        GIT_CREDENTIALS = 'git-tok'
     }
+
     stages {
-        stage('Terraform Init') {
+        stage('Checkout') {
             steps {
-                script {
-                    sh 'terraform init'
-                }
+                // Using the Git credentials to clone the repo
+                git credentialsId: "${GIT_CREDENTIALS}", url: 'https://github.com/kaustubhchandra/GKE-terra-jen.git'
             }
         }
-        stage('Terraform Apply') {
+
+        stage('Build') {
             steps {
-                script {
-                    sh 'terraform apply -auto-approve'
-                }
+                // Your build steps go here
+                echo 'Building the project...'
             }
         }
-    }
-    post {
-        success {
-            echo "GKE Cluster created successfully!"
-        }
-        failure {
-            echo "Failed to create GKE Cluster."
-        }
+
+        // Add more stages as needed
     }
 }
