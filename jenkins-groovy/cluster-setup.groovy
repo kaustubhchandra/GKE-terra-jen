@@ -8,7 +8,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Clone the repository containing your Terraform configuration (optional if you use SCM)
-                git 'https://github.com/kaustubhchandra/GKE-terra-jen.git'
+                git 'https://github.com/kaustubhchandra/GKE-terra-jen.git', branch: 'main'
             }
         }
         stage('Terraform Init') {
