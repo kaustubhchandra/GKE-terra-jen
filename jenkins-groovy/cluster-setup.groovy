@@ -29,27 +29,36 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                script {
-                    // Initialize Terraform in the specified directory
-                    sh 'cd tf-modules/gke-cluster && terraform init'
+                // Wrap steps inside node block to provide the necessary workspace context
+                node {
+                    script {
+                        // Initialize Terraform in the specified directory
+                        sh 'cd tf-modules/gke-cluster && terraform init'
+                    }
                 }
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                script {
-                    // Run terraform plan in the specified directory
-                    sh 'cd tf-modules/gke-cluster && terraform plan'
+                // Wrap steps inside node block to provide the necessary workspace context
+                node {
+                    script {
+                        // Run terraform plan in the specified directory
+                        sh 'cd tf-modules/gke-cluster && terraform plan'
+                    }
                 }
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                script {
-                    // Automatically approve the Terraform apply
-                    sh 'cd tf-modules/gke-cluster && terraform apply -auto-approve'
+                // Wrap steps inside node block to provide the necessary workspace context
+                node {
+                    script {
+                        // Automatically approve the Terraform apply
+                        sh 'cd tf-modules/gke-cluster && terraform apply -auto-approve'
+                    }
                 }
             }
         }
