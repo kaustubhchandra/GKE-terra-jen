@@ -15,15 +15,14 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
-                    sh 'cd tf-modules/gke-cluster/'
-                    sh 'terraform init'
+                    sh 'cd tf-modules/gke-cluster && terraform init'
                 }
             }
         }
         stage('Terraform Plan') {
             steps {
                 script {
-                    sh 'terraform plan'
+                    sh 'cd tf-modules/gke-cluster && terraform plan'
                 }
             }
         }
@@ -31,7 +30,7 @@ pipeline {
             steps {
                 script {
                     // Automatically approve the Terraform apply
-                    sh 'terraform apply -auto-approve'
+                    sh 'cd tf-modules/gke-cluster && terraform apply -auto-approve'
                 }
             }
         }
