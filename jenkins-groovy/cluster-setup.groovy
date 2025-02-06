@@ -15,7 +15,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
-                    sh 'cd jenkins-groovy'
+                    sh 'cd tf-modules/gke-cluster/'
                     sh 'terraform init'
                 }
             }
