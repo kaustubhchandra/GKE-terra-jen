@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         GOOGLE_APPLICATION_CREDENTIALS = credentials('gke-gcr-json') // The ID of your Google Cloud Service Account credentials
+        GIT_CREDENTIALS = 'git-tok'
     }
     
     stages {
