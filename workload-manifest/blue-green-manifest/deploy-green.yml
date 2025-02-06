@@ -13,7 +13,7 @@ spec:
         app: green
     spec:
       containers:
-      - name: java-app
-        image: your-java-app:latest
+      - name: highway-app
+        image: gcr.io/your-gcp-project-id/highway-app:latest
         ports:
         - containerPort: 8080
