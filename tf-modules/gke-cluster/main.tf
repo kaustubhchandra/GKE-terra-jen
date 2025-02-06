@@ -5,7 +5,7 @@ provider "google" {
 
 resource "google_container_cluster" "primary" {
   name     = "highway-cluster"
-  location = "us-central1-a"
+  location = "asia-south1-b"
 
   initial_node_count = 2
   node_config {
@@ -22,11 +22,6 @@ resource "google_container_cluster" "primary" {
     password = "password"
   }
 }
-
-output "cluster_name" {
-  value = google_container_cluster.primary.name
-}
-
 output "cluster_endpoint" {
   value = google_container_cluster.primary.endpoint
 }
