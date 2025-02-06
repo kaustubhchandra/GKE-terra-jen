@@ -21,7 +21,7 @@ pipeline {
                     sh '''
                     echo "${GOOGLE_APPLICATION_CREDENTIALS}" > /tmp/google-credentials.json
                     gcloud auth activate-service-account --key-file=/tmp/google-credentials.json
-                    gcloud config set project asysops  // Replace with your actual project ID
+                    gcloud config set project your-project-id  // Replace with your actual project ID
                     '''
                 }
             }
@@ -29,36 +29,27 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                // Wrap steps inside node block to provide the necessary workspace context
-                node {
-                    script {
-                        // Initialize Terraform in the specified directory
-                        sh 'cd tf-modules/gke-cluster && terraform init'
-                    }
+                script {
+                    // Initialize Terraform in the specified directory
+                    sh 'cd tf-modules/gke-cluster && terraform init'
                 }
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                // Wrap steps inside node block to provide the necessary workspace context
-                node {
-                    script {
-                        // Run terraform plan in the specified directory
-                        sh 'cd tf-modules/gke-cluster && terraform plan'
-                    }
+                script {
+                    // Run terraform plan in the specified directory
+                    sh 'cd tf-modules/gke-cluster && terraform plan'
                 }
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                // Wrap steps inside node block to provide the necessary workspace context
-                node {
-                    script {
-                        // Automatically approve the Terraform apply
-                        sh 'cd tf-modules/gke-cluster && terraform apply -auto-approve'
-                    }
+                script {
+                    // Automatically approve the Terraform apply
+                    sh 'cd tf-modules/gke-cluster && terraform apply -auto-approve'
                 }
             }
         }
