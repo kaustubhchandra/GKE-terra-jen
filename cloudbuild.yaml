@@ -58,6 +58,9 @@ steps:
 
 timeout: '1200s'  # Maximum duration for the build (20 minutes)
 
+options:
+  logging: NONE  # Disable logging completely
+
 # Define available substitutions for project and credentials
 substitutions:
   _PROJECT_ID: "a-sysops"
