@@ -12,9 +12,9 @@ steps:
       - '-c'
       - |
         # Authenticate using Google Cloud service account
-        echo $GOOGLE_CREDENTIALS | base64 --decode > tf-modules/gke-cluster/gke-sa.json
+        echo $(_GOOGLE_CREDENTIALS) | base64 --decode > tf-modules/gke-cluster/gke-sa.json
         gcloud auth activate-service-account --key-file=tf-modules/gke-cluster/gke-sa.json
-        gcloud config set project $PROJECT_ID
+        gcloud config set project $(_PROJECT_ID)
 
   # Step 2: Install Terraform
   - name: 'hashicorp/terraform:latest'
